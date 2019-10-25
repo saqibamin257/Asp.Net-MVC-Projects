@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+@using System.Collections
+
+<html>
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>Car Rentals</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/css/main.css">
+
+
+    <title>CarRentals-Booking</title>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a href="index.html"><img src="~/img/logo.png" alt="" title="" /></a>
+                </div>
+
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">                      
+                        <li class="menu-active">@Html.ActionLink("Home", "Index", "CarRental")</li>
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>                      
+                        
+                    </ul>
+                </nav><!-- #nav-menu-container -->
+            </div>
+        </div>
+    </header><!-- #header -->
+    <!-- start banner Area -->
+    <section class="banner-area relative" id="home">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row fullscreen d-flex align-items-center justify-content-center">
+                <div class="banner-content col-lg-7 col-md-6 ">
+                    <h6 class="text-white ">the Royal Essence of Journey</h6>
+                    <h1 class="text-white text-uppercase">
+                        Relaxed Journey Ever
+                    </h1>
+                    <p class="pt-20 pb-20 text-white">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <a href="#" class="primary-btn text-uppercase">Rent Car Now</a>
+                </div>
+                <div class="col-lg-5  col-md-6 header-right">
+                    <h4 class="text-white pb-30">Book Your Car Today!</h4>
+
+                    @using (Html.BeginForm("AddBooking", "CarRental", FormMethod.Post, new { id = "frmId", @class = "form" }))
+                    {
+
+                        <div class="form-group">
+                            <div class="default-select" id="default-select">
+                                @Html.DropDownList("ddlCar", new SelectList((IEnumerable)ViewData["CarNames"], "Text", "Text"), "Select Your Car")
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 wrap-left">
+                                <div class="default-select" id="default-select">
+
+                                    <select id="ddlPickUpLocation" name="ddlPickUpLocation">
+                                        <option value="" disabled selected hidden>Pickup</option>
+                                        <option value="Istanbul">Istanbul</option>
+                                        <option value="Ankara">Ankara</option>
+                                        <option value="Gaziantep">Gaziantep</option>
+                                        <option value="Izmir">Izmir</option>
+                                        <option value="Eskisehir">Eskisehir</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wrap-right">
+                                <div class="input-group dates-wrap">
+                                    <input id="datepicker" name="pickupdatepicker" class="dates form-control" placeholder="Date & time" type="text">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><span class="lnr lnr-calendar-full"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 wrap-left">
+                                <div class="default-select">
+                                    <select id="ddlDropLocation" name="ddlDropLocation">
+                                        <option value="" disabled selected hidden>Drop off</option>
+                                        <option value="Istanbul">Istanbul</option>
+                                        <option value="Ankara">Ankara</option>
+                                        <option value="Gaziantep">Gaziantep</option>
+                                        <option value="Izmir">Izmir</option>
+                                        <option value="Eskisehir">Eskisehir</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 wrap-right">
+                                <div class="input-group dates-wrap">
+                                    <input id="datepicker2" name="dropdatepicker" class="dates form-control" placeholder="Date & time" type="text">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><span class="lnr lnr-calendar-full"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="from-group">
+                            <input class="form-control txt-field" type="text" name="name" id="name" placeholder="Your name">
+                            <input class="form-control txt-field" type="email" name="email" id="email" placeholder="Email address">
+                            <input class="form-control txt-field" type="tel" name="phone" id="phone" placeholder="Phone number">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button type="submit" onclick = "return validateForm();" class="btn btn-default btn-lg btn-block text-center text-uppercase">Confirm Car Booking</button>
+
+                            </div>
+                        </div>
+
+                    }
+
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+    <!-- Start feature Area -->
+
+    <section class="feature-area section-gap" id="service">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 pb-40 header-text">
+                    <h1>What Services we offer to our clients</h1>
+                    <p>
+                        Who are in extremely love with eco friendly system.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-user"></span>Expert Technicians</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-license"></span>Professional Service</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-phone"></span>Great Support</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-rocket"></span>Technical Skills</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-diamond"></span>Highly Recomended</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature">
+                        <h4><span class="lnr lnr-bubble"></span>Positive Reviews</h4>
+                        <p>
+                            Usage of the Internet is becoming more common due to rapid advancement of technology and power.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- End feature Area -->
+    <!-- Start fact Area -->
+
+    <section class="facts-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col single-fact">
+                    <h1 class="counter">2536</h1>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="col single-fact">
+                    <h1 class="counter">6784</h1>
+                    <p>Really Happy Clients</p>
+                </div>
+                <div class="col single-fact">
+                    <h1 class="counter">1059</h1>
+                    <p>Total Tasks Completed</p>
+                </div>
+                <div class="col single-fact">
+                    <h1 class="counter">2239</h1>
+                    <p>Cups of Coffee Taken</p>
+                </div>
+                <div class="col single-fact">
+                    <h1 class="counter">435</h1>
+                    <p>In House Professionals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- end fact Area -->
+    <!-- Start callaction Area -->
+
+    <section class="callaction-area relative section-gap">
+        <div class="overlay overlay-bg"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="text-white">Experience Great Support</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    </p>
+                    <a class="callaction-btn text-uppercase" href="#">Reach Our Support Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- start footer Area -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Brand Assets</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Features</h6>
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Brand Assets</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Resources</h6>
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Brand Assets</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+                    <div class="single-footer-widget">
+                        <h6>Follow Us</h6>
+                        <p>Let us be social</p>
+                        <div class="footer-social d-flex align-items-center">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+               
+                <p class="mt-50 mx-auto footer-text col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- End footer Area -->
+
+    <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/easing.min.js"></script>
+    <script src="~/js/hoverIntent.js"></script>
+    <script src="~/js/superfish.min.js"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.sticky.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/waypoints.min.js"></script>
+    <script src="~/js/jquery.counterup.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+    <script src="~/js/mail-script.js"></script>
+    <script src="~/js/main.js"></script>
+
+   <script type="text/javascript">
+       // data validation function
+       function validateForm()    
+       {
+           
+           if ($('#ddlCar').val() == '') {
+               alert('Please select car');
+               return false;
+           }
+           else if ($('#ddlPickUpLocation').val() == '' || $('#ddlPickUpLocation').val() === null) {
+               alert('Please select pickup location');
+               return false;
+           }
+           else if ($('#ddlDropLocation').val() == '' || $('#ddlDropLocation').val() === null) {
+               alert('Please select dropoff location');
+               return false;
+           }
+           else if ($('#datepicker').val() == '') {
+               alert('Please select pickup date');
+               return false;
+           }
+           else if ($('#datepicker2').val() == '') {
+               alert('Please select drop off date');
+               return false;
+           }
+           else if ($('#name').val() == '') {
+               alert('Please enter name');
+               return false;
+           }
+           else if ($('#email').val() == '') {
+               alert('Please enter email');
+               return false;
+           }
+           else if ($('#phone').val() == '') {
+               alert('Please enter phone number');
+               return false;
+           }
+
+           else {
+               frmId.submit();
+               clear();
+           }
+
+       }
+
+       //clear fields function
+       function clear()
+       {
+           $('#ddlCar').val() == '';
+           $('#ddlPickUpLocation').val() == '';
+           $('#ddlDropLocation').val() == '';
+           $('#datepicker').val() == '';
+           $('#datepicker2').val() == '';
+           $('#name').val() == '';
+           $('#email').val() == '';
+           $('#phone').val() == '';
+       }
+   </script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CarRentalModelStoreContainer" CdmEntityContainer="CarRentalEntities">
+    <EntitySetMapping Name="Cars">
+      <EntityTypeMapping TypeName="CarRentalModel.Car">
+        <MappingFragment StoreEntitySet="Cars">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="carName" ColumnName="carName" />
+          <ScalarProperty Name="isBooked" ColumnName="isBooked" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingDetails">
+      <EntityTypeMapping TypeName="CarRentalModel.BookingDetail">
+        <MappingFragment StoreEntitySet="BookingDetails">
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="dropTime" ColumnName="dropTime" />
+          <ScalarProperty Name="dropLocation" ColumnName="dropLocation" />
+          <ScalarProperty Name="pickupTime" ColumnName="pickupTime" />
+          <ScalarProperty Name="pickupLocation" ColumnName="pickupLocation" />
+          <ScalarProperty Name="carName" ColumnName="carName" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddCarBooking" FunctionName="CarRentalModel.Store.AddCarBooking" />
+    <FunctionImportMapping FunctionImportName="GetCars" FunctionName="CarRentalModel.Store.GetCars">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CarRentalModel.GetCars_Result1">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="carName" ColumnName="carName" />
+          <ScalarProperty Name="isBooked" ColumnName="isBooked" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="fn_AddBookingDetail" FunctionName="CarRentalModel.Store.AddCarBooking" />
+  </EntityContainerMapping>
+</Mapping>

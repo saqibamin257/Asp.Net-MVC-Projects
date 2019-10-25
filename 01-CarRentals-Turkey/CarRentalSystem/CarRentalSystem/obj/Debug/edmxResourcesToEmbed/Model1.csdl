@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="carName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isBooked" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="CarRentalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cars" EntityType="Self.Car" />
+    <EntitySet Name="BookingDetails" EntityType="CarRentalModel.BookingDetail" />
+    <FunctionImport Name="AddCarBooking" ReturnType="Collection(String)">
+      <Parameter Name="carName" Mode="In" Type="String" />
+      <Parameter Name="pickupLocation" Mode="In" Type="String" />
+      <Parameter Name="pickupTime" Mode="In" Type="String" />
+      <Parameter Name="dropLocation" Mode="In" Type="String" />
+      <Parameter Name="dropTime" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetCars" ReturnType="Collection(CarRentalModel.GetCars_Result1)" />
+    <FunctionImport Name="fn_AddBookingDetail" ReturnType="Collection(String)">
+      <Parameter Name="carName" Mode="In" Type="String" />
+      <Parameter Name="pickupLocation" Mode="In" Type="String" />
+      <Parameter Name="pickupTime" Mode="In" Type="String" />
+      <Parameter Name="dropLocation" Mode="In" Type="String" />
+      <Parameter Name="dropTime" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="phone" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetCars_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="carName" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="isBooked" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="BookingDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="carName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pickupLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="pickupTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dropLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dropTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="GetCars_Result1">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="carName" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="isBooked" Nullable="true" />
+  </ComplexType>
+</Schema>

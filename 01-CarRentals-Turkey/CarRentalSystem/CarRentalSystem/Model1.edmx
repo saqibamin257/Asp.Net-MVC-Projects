@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarRentalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookingDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="carName" Type="varchar" MaxLength="50" />
+          <Property Name="pickupLocation" Type="varchar" MaxLength="50" />
+          <Property Name="pickupTime" Type="varchar" MaxLength="50" />
+          <Property Name="dropLocation" Type="varchar" MaxLength="50" />
+          <Property Name="dropTime" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="carName" Type="varchar" MaxLength="50" />
+          <Property Name="isBooked" Type="bit" />
+        </EntityType>
+        <Function Name="AddCarBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="carName" Type="varchar" Mode="In" />
+          <Parameter Name="pickupLocation" Type="varchar" Mode="In" />
+          <Parameter Name="pickupTime" Type="varchar" Mode="In" />
+          <Parameter Name="dropLocation" Type="varchar" Mode="In" />
+          <Parameter Name="dropTime" Type="varchar" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetCars" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CarRentalModelStoreContainer">
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarRentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="carName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isBooked" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="CarRentalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="BookingDetails" EntityType="CarRentalModel.BookingDetail" />
+          <FunctionImport Name="AddCarBooking" ReturnType="Collection(String)">
+            <Parameter Name="carName" Mode="In" Type="String" />
+            <Parameter Name="pickupLocation" Mode="In" Type="String" />
+            <Parameter Name="pickupTime" Mode="In" Type="String" />
+            <Parameter Name="dropLocation" Mode="In" Type="String" />
+            <Parameter Name="dropTime" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCars" ReturnType="Collection(CarRentalModel.GetCars_Result1)" />
+          <FunctionImport Name="fn_AddBookingDetail" ReturnType="Collection(String)">
+            <Parameter Name="carName" Mode="In" Type="String" />
+            <Parameter Name="pickupLocation" Mode="In" Type="String" />
+            <Parameter Name="pickupTime" Mode="In" Type="String" />
+            <Parameter Name="dropLocation" Mode="In" Type="String" />
+            <Parameter Name="dropTime" Mode="In" Type="String" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetCars_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="carName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="isBooked" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="carName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pickupLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pickupTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dropLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dropTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="GetCars_Result1">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="carName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="isBooked" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarRentalModelStoreContainer" CdmEntityContainer="CarRentalEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarRentalModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="carName" ColumnName="carName" />
+                <ScalarProperty Name="isBooked" ColumnName="isBooked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingDetails">
+            <EntityTypeMapping TypeName="CarRentalModel.BookingDetail">
+              <MappingFragment StoreEntitySet="BookingDetails">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="dropTime" ColumnName="dropTime" />
+                <ScalarProperty Name="dropLocation" ColumnName="dropLocation" />
+                <ScalarProperty Name="pickupTime" ColumnName="pickupTime" />
+                <ScalarProperty Name="pickupLocation" ColumnName="pickupLocation" />
+                <ScalarProperty Name="carName" ColumnName="carName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddCarBooking" FunctionName="CarRentalModel.Store.AddCarBooking" />
+          <FunctionImportMapping FunctionImportName="GetCars" FunctionName="CarRentalModel.Store.GetCars">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CarRentalModel.GetCars_Result1">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="carName" ColumnName="carName" />
+                <ScalarProperty Name="isBooked" ColumnName="isBooked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fn_AddBookingDetail" FunctionName="CarRentalModel.Store.AddCarBooking" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
